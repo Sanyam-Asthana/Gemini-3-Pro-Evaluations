@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev_Portfolio_v1.0</title>
+    
+    <!-- Import a Tech/Monospace Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #111111;
+            --text-main: #e0e0e0;
+            --text-dim: #888888;
+            --accent: #00ff41; /* Matrix Green */
+            --accent-glow: rgba(0, 255, 65, 0.2);
+            --font-stack: 'Fira Code', monospace;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-stack);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Grid Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                linear-gradient(rgba(18, 18, 18, 0) 50%, rgba(0, 0, 0, 0.2) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--text-dim);
+            margin-left: 20px;
+            opacity: 0.3;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 4rem;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: 1px solid var(--accent);
+            padding: 5px 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hero p.intro { color: var(--accent); margin-bottom: 10px; }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            color: var(--text-dim);
+            margin-bottom: 30px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1rem;
+            background-color: var(--accent);
+            animation: blink 1s infinite;
+        }
+
+        .btn {
+            display: inline-block;
+            border: 1px solid var(--accent);
+            padding: 12px 24px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: var(--accent-glow);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* --- ABOUT (TERMINAL STYLE) --- */
+        .terminal-window {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 5px;
+            margin-bottom: 6rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .terminal-header {
+            background: #1f1f1f;
+            padding: 10px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 30px;
+            font-size: 0.95rem;
+        }
+
+        .cmd { color: var(--accent); margin-bottom: 10px; }
+        .output { color: var(--text-dim); margin-bottom: 20px; }
+
+        /* --- SKILLS --- */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 6rem;
+        }
+
+        .skill-tag {
+            background: rgba(255,255,255,0.05);
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border-left: 2px solid var(--accent);
+        }
+
+        .skill-tag:hover {
+            background: rgba(0, 255, 65, 0.1);
+            transform: translateY(-2px);
+            transition: var(--transition);
+        }
+
+        /* --- PROJECTS --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 6rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border: 1px solid transparent;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .project-card h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .project-card p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px; }
+
+        .tech-stack {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            opacity: 0.7;
+        }
+
+        /* --- CONTACT --- */
+        .contact-section {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .contact-btn {
+            margin-top: 20px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            border-top: 1px solid #222;
+        }
+
+        /* --- ANIMATION KEYFRAMES --- */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Keep it super minimal on mobile for now */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- NAV -->
+        <nav>
+            <a href="#" class="logo">&lt;dev/&gt;</a>
+            <div class="nav-links">
+                <a href="#about">01. About</a>
+                <a href="#projects">02. Work</a>
+                <a href="#contact">03. Contact</a>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero">
+            <p class="intro">Hi, my name is</p>
+            <h1>Alex Developer.</h1>
+            <h2>I build <span id="typewriter"></span><span class="cursor"></span></h2>
+            <a href="#projects" class="btn">Check my work</a>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about">
+            <h2 class="section-title">01. About Me</h2>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="terminal-body">
+                    <div class="cmd">&gt; whoami</div>
+                    <div class="output">
+                        "A passionate software engineer focused on building scalable, minimalist web solutions. I love converting complex logic into simple, clean code."
+                    </div>
+                    <div class="cmd">&gt; current_location</div>
+                    <div class="output">"Earth, Internet"</div>
+                    <div class="cmd">&gt; hobbies</div>
+                    <div class="output">["Coding", "Cybersecurity", "Coffee", "Gaming"]</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills">
+            <h2 class="section-title">Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-tag">JavaScript (ES6+)</div>
+                <div class="skill-tag">React / Next.js</div>
+                <div class="skill-tag">Node.js</div>
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">SQL / NoSQL</div>
+                <div class="skill-tag">Docker</div>
+                <div class="skill-tag">Git</div>
+                <div class="skill-tag">AWS</div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects">
+            <h2 class="section-title">02. Selected Projects</h2>
+            <div class="projects-grid">
+                <!-- Card 1 -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <span>Folder</span>
+                        <span>&#8599;</span> <!-- Arrow icon -->
+                    </div>
+                    <h3>AI Chat Interface</h3>
+                    <p>A minimalist chat wrapper utilizing OpenAI API with custom system prompts and local storage history.</p>
+                    <div class="tech-stack">React &middot; Node.js &middot; OpenAI API</div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <span>Folder</span>
+                        <span>&
